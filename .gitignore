@@ -1,0 +1,25 @@
+.DS_Store
+node_modules/
+/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# 
+Note.md
+ssh_conf.yaml
+dist.zip
+_ssh_conf_pro.yaml
+
+
+# obdev
+/data/
+.env
