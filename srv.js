@@ -9,7 +9,7 @@ app.set('port', port);
 var server = http.createServer(app);
 
 app.listen(port, ()=>{
-    console.log(`---------- ${process.env.NODE_ENV} server is running on: http://localhost:${port} ----------`);
+    console.log(`---------- server(${process.env.APP_NAME}:${process.env.NODE_ENV}) is running on: http://localhost:${port} ----------`);
 });
 server.on('error', onError);
 server.on('listening', onListening);

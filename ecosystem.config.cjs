@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name   : "obda",
-    script : "./bin.js",
+    script : "./srv.js",
     watch: true,
     // watch_delay: 1000,
     ignore_watch : ["node_modules","data/born"],
