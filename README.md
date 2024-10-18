@@ -24,3 +24,6 @@ pm2 stop obda                               # 关闭应用
 - https://developers.google.com/analytics/devguides/reporting/data/v1
 - https://developers.google.com/analytics/devguides/reporting/data/v1/rest
 - https://googleapis.dev/nodejs/analytics-data/latest/index.html
+
+## about: Google Analytics Admin API demo
+- https://googleapis.dev/nodejs/analytics-admin/latest/index.html
