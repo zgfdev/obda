@@ -1,0 +1,83 @@
+extends layout
+
+block content
+  h1= title
+  form(method="POST" action="/auth/login" id="loginForm")
+    style.
+      form {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; 
+      }
+      .line {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+      label {
+        width: 60px;
+        text-align: right;
+        margin-right: 10px; 
+      }
+      input[type="text"],
+      input[type="password"] {
+        flex-grow: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px; 
+      }
+      button[type="submit"] {
+        margin-left: 70px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px; 
+        cursor: pointer; 
+      }
+    - var classNM='line'
+    div(class=classNM)
+      label(for="username") 用户名:
+      input(type="text" id="username" name="username" autocomplete="username")
+    div(class=classNM)
+      label(for="password") 密码:
+      input(type="password" id="password" name="password" autocomplete="current-password")
+    div(class=classNM)
+      button(type="submit") 登录
+  div 
+    ul 
+      li
+        a(href="/gapi/ga/data") GA dataApi
+      li
+        a(href="/gapi/ga/admin") GA adminApi
+      li 
+        a(href="/gapi/gcp/resm") GCP resmApi
+  script.
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      try {
+        const response = await fetch('/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+        if (response.ok) {
+          const data=await response.json();
+          if(data?.status=="success"){
+            console.log(data?.msg); 
+          }else{
+            console.error('Login failed 1');
+          }
+        } else {
+          console.error('Login failed 2');
+        }
+      } catch (error) {
+        console.error('Request error:', error);
+      }
+    });

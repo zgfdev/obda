@@ -5,7 +5,8 @@
   "author": "obxyz",
   "private": true,
   "scripts": {
-    "start": "node srv.js"
+    "start": "node srv.js",
+    "dev": "pm2 start ecosystem.config.cjs --env dev"
   },
   "config": {
     "port": "6661"
@@ -15,13 +16,15 @@
     "@google-analytics/admin": "^7.6.0",
     "@google-analytics/data": "^4.9.0",
     "@google-cloud/bigquery": "^7.9.1",
+    "@google-cloud/resource-manager": "^5.3.0",
     "bottleneck": "^2.19.5",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-favicon": "^2.0.4",
     "google-ads-api": "17.1.0",
     "google-auth-library": "^9.14.2",
     "googleapis": "^144.0.0",
-    "p-limit": "^6.1.0"
+    "pug": "^3.0.3"
   }
 }
