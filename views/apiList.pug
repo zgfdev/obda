@@ -2,6 +2,14 @@ extends layout
 
 block content
   h1= title
+  div 
+    ul 
+      li
+        a(href="/api/gapi/ga/data") GA dataApi
+      li
+        a(href="/api/gapi/ga/admin") GA adminApi
+      li 
+        a(href="/api/gapi/gcp/resm") GCP resmApi
   div
     ul
       each api in apiInfo.list

@@ -1,7 +1,7 @@
 import express from 'express';
 import { ProjectsClient } from '@google-cloud/resource-manager';
-import { saveJSON, getLocalJSON } from '../../../src/utils/obfn.js';
-import { cfg_key } from '../../../src/obcfg.js';
+import { saveJSON, getLocalJSON } from '#utils/obfn.js';
+import { cfg_key } from '#conf/obcfg.js';
 
 
 const rmc = new ProjectsClient({ keyFilename: cfg_key });

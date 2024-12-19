@@ -5,7 +5,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { dirname } from 'path';
 import favicon from 'express-favicon';
-import indexRouter from './routes/index.js';
+import rtIndex from './routes/rtIndex.js';
+import rtApi from './routes/rtApi.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -36,6 +37,7 @@ app.use(express.json({ limit: '100MB' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use('/', indexRouter);
+app.use('/api', rtApi);
+app.use('/',rtIndex)
 
 export default app;

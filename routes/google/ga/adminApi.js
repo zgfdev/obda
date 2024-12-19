@@ -1,12 +1,10 @@
 import express from 'express';
 import Bottleneck from "bottleneck";
-import { saveJSON, getLocalJSON, getFirstHalf } from '../../../src/utils/obfn.js';
-import { cfg_aid, cfg_pid } from '../../../src/obcfg.js';
+import { saveJSON, getLocalJSON, getFirstHalf } from '#utils/obfn.js';
+import { cfg_aid, cfg_pid } from '#conf/obcfg.js';
 import { aasc } from './clientGA.js';
 
-console.log('oblog_20241217','cur_ids:',cfg_aid,cfg_pid)
-
-
+/*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 const limiter = new Bottleneck({//每分钟150个请求
   maxConcurrent: 1,  // 每次只允许1个并发请求
   minTime: 400       // 每个请求间隔400毫秒（60,000 ms / 150 = 400ms）

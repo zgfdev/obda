@@ -1,8 +1,6 @@
 import express from 'express';
-import { cfg_aid, cfg_pid } from '../../../src/obcfg.js';
-import { saveJSON, getLocalJSON, getFirstHalf } from '../../../src/utils/obfn.js';
-import { aasc } from './clientGA.js';
-import { data_stream_list_get } from './adminApi.js';
+import { cfg_aid, cfg_pid } from '#conf/obcfg.js';
+import { saveJSON, getLocalJSON, getFirstHalf } from '#utils/obfn.js';
 
 
 const router = express.Router();
