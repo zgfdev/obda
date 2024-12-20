@@ -6,6 +6,17 @@ html
     meta(name="description", content="mongodb, express, node, life is a journey")
     meta(name="author", content="aten")
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
-    link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/xyz.css')
+    script(src="/js/xyz.js")
   body
+    nav(id="topNav")
+      ul
+        li
+          a(href="/") Home
+        li
+          a(href="/api/dev") Dev
+        li
+          a(href="/api/gapi/ga/data") gaDataAPI
+        li
+          a(href="/api/gapi/ga/admin") gaAdminAPI
     block content

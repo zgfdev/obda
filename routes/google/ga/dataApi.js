@@ -85,18 +85,37 @@ function getData2(){
 // getData2();
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 const router=express.Router();
-router.get('/', (req,res,next)=>{
-    res.send("data api test");
-});
-router.post("/report",async(req,res)=>{
-    try {
-      var ro=req.body;
-      let pid=ro?.pid, drs=ro?.drs, cds=ro?.cds, cms=ro?.cms, dft=ro?.dft, mft=ro?.mft;
-      const [result]=await getReport(pid,drs,cds,cms,dft,mft);
-      return res.json({stauts:'ok',result:result});
-    } catch (err) {
-      console.log('oblog','getReport.err',err);
-      res.json({status:"err"});
+
+const apiInfo = {
+  base: '/gapi/ga/data',
+  list: [
+    {
+      name: 'getReportResult',
+      meth: 'get',
+      path: '/report',
+      fn: getReportResult
     }
+  ],
+};
+router.get('/', (req, res, next) => {
+  res.render('apiList', { title: `GA DataAPI`, apiInfo: apiInfo });
 });
+apiInfo.list.forEach((api) => {
+  router[api.meth](api.path, async (req, res, next) => {
+    const result = await api.fn(req);
+    res.json({ result: result });
+  });
+});
+
+async function getReportResult(req){
+  try {
+    var ro=req.body;
+    let pid=ro?.pid, drs=ro?.drs, cds=ro?.cds, cms=ro?.cms, dft=ro?.dft, mft=ro?.mft;
+    const [result]=await getReport(pid,drs,cds,cms,dft,mft);
+    return {stauts:'ok',result:result};
+  } catch (err) {
+    console.log('oblog','getReport.err',err);
+    return {status:"err"};
+  }
+}
 export default router;

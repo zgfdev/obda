@@ -11,7 +11,7 @@ module.exports = {
       APP_NAME: "obda",
       NODE_ENV: "development",
       PORT: 6661,
-      HTTPS_PROXY: "http://127.0.0.1:10809",
+      HTTPS_PROXY: "http://127.0.0.1:10066",
     },
     env_prd: {
       NODE_ENV: 'production',

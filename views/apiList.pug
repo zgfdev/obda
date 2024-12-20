@@ -2,16 +2,10 @@ extends layout
 
 block content
   h1= title
-  div 
-    ul 
-      li
-        a(href="/api/gapi/ga/data") GA dataApi
-      li
-        a(href="/api/gapi/ga/admin") GA adminApi
-      li 
-        a(href="/api/gapi/gcp/resm") GCP resmApi
-  div
+  div(class="api-list")
     ul
       each api in apiInfo.list
         li
+          button(onclick=`sendReq('${apiInfo.base + api.path}')`) execute
           a(href=apiInfo.base+api.path) #{api.name}
+

@@ -36,8 +36,6 @@ const cfg_key=`data/auth/${process.env['key_'+curObj.key]}.json`;
 const cfg_aid=curObj.aid.at(-1);
 const cfg_pid=curObj.pid.at(-1);
 
-console.log('oblog_20241217','cfg_key',cfg_key)
-
 export {
   cfg_key,
   cfg_aid,

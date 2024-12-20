@@ -25,21 +25,21 @@ export default router;
 const apiInfo={
   base: '/api',
   list: [
-    // {
-    //   name: 'GA dataApi',
-    //   meth: 'get',
-    //   path: "/gapi/ga/data",
-    // },
-    // {
-    //   name: 'GA adminApi',
-    //   meth: 'get',
-    //   path: "/gapi/ga/admin",
-    // },
-    // {
-    //   name: 'GCP resmApi',
-    //   meth: 'get',
-    //   path: "/gapi/gcp/resm",
-    // },
+    {
+      name: 'GA dataApi',
+      meth: 'get',
+      path: "/gapi/ga/data",
+    },
+    {
+      name: 'GA adminApi',
+      meth: 'get',
+      path: "/gapi/ga/admin",
+    },
+    {
+      name: 'GCP resmApi',
+      meth: 'get',
+      path: "/gapi/gcp/resm",
+    },
   ]
 };
 router.get('/', (req,res,next)=>{

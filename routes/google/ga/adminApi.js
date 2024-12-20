@@ -356,7 +356,7 @@ async function link_bq_patch(obj,mask){
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 const apiInfo={
-  base: '/gapi/ga/admin',
+  base: '/api/gapi/ga/admin',
   list: [
     {
       name: 'sub:stream',
@@ -428,7 +428,7 @@ apiInfo.list.forEach((api) => {
 // /gapi/ga/admin/
 router.get('/', async(req, res, next) => {
   // res.send('ga admin api index');
-  res.render('apiList', { title: 'adminApi', apiInfo: apiInfo });
+  res.render('apiList', { title: 'GA AdminAPI', apiInfo: apiInfo });
 });
 router.get('/test', async (req, res, next) => {
   // const data=await getData('ppts');

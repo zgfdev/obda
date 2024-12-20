@@ -5,6 +5,9 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { dirname } from 'path';
 import favicon from 'express-favicon';
+import livereload from 'livereload';
+import connectLivereload from 'connect-livereload';
+
 import rtIndex from './routes/rtIndex.js';
 import rtApi from './routes/rtApi.js';
 
@@ -12,6 +15,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.watch([
+  path.join(__dirname, 'public'), 
+  path.join(__dirname, 'views')
+]);
+app.use(connectLivereload());
+liveReloadServer.server.once('connection', () => {
+  setTimeout(() => {
+    liveReloadServer.refresh('/');
+  }, 100);
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
