@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  div(class="route-list")
+    ul
+      each route in routes
+        - const rtPath = rtBase + (route.path||("/"+route.name.replace(/_/g, '/')));
+        li
+          button(onclick=`sendReq('${rtPath}')`) execute
+          a(href=rtPath) #{route.name}
+

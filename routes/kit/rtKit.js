@@ -8,7 +8,7 @@ export default router;
 
 
 const apiInfo = {
-  base: '/gapi/ga/admin/stream',
+  base: '/api/kit',
   list: [
     {
       name: 'getData',
@@ -27,6 +27,12 @@ const apiInfo = {
       meth: 'get',
       path: '/data/streams',
       fn: getStreams
+    },
+    {
+      name: 'getCds',
+      meth: 'get',
+      path: '/data/cds',
+      fn: getCds
     }
   ],
 };
@@ -82,4 +88,21 @@ async function getStreams(){
     sObj[e]=obj[e][0][0].name;
   })
   return sObj;
+}
+/*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
+async function getCds(){
+  const data=await getLocalJSON('data/xm_es_cds.json');
+  const arr=data.result;
+  const cdArr=[];
+  arr.forEach(e=>{
+    if(!["utm_channel","utm_content","utm_term","utm_type","abtest_group","abtest_group1","abtest_group2","sid","perf","perf1","perf2"].includes(e.parameterName)){
+      cdArr.push({
+        displayName: e.displayName,
+        description: e.description,
+        scope: e.scope,
+        parameterName: e.parameterName,
+      })
+    }
+  })
+  return cdArr;
 }

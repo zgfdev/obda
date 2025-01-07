@@ -3,7 +3,9 @@ import rtAuth from './auth/rtAuth.js'
 import rtDev from './dev/rtDev.js';
 import rtKit from './kit/rtKit.js';
 import rtLog_dl from './log/dataLayer.js'
+import rtGA_dataApi_gd from './google/ga/data/rtGD.js';
 import rtGA_dataApi from './google/ga/dataApi.js';
+import rtGA_adminApi_xm from './google/ga/admin/rtXM.js';
 import rtGA_adminApi from './google/ga/adminApi.js';
 import rtGCP_resmApi from './google/gcp/resmApi.js';
 
@@ -51,7 +53,9 @@ router.use('/auth', rtAuth);
 router.use('/dev', rtDev);
 router.use('/kit', rtKit);
 router.use('/log/dl', rtLog_dl);
+router.use('/gapi/ga/data/gd', rtGA_dataApi_gd);
 router.use('/gapi/ga/data', rtGA_dataApi);
+router.use('/gapi/ga/admin/xm', rtGA_adminApi_xm);
 router.use('/gapi/ga/admin', rtGA_adminApi);
 router.use('/gapi/gcp/resm', rtGCP_resmApi);
 

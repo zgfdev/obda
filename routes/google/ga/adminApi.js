@@ -181,7 +181,7 @@ async function signal_state_update(pid){
 async function key_event_create(pid){
   const response = await aasc.createKeyEvent({
     keyEvent: {
-      eventName:  "News_Click",
+      eventName: "News_Click",
     },
     parent: `properties/${pid || cfg_pid}`,
   });
