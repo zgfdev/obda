@@ -27,5 +27,5 @@ pm2 stop obda                               # 关闭应用
 
 ## about: Google Analytics Admin API demo
 - https://developers.google.com/analytics/devguides/config/admin/v1
-- https://developers.google.com/analytics/devguides/reporting/data/v1/rest
+- https://developers.google.com/analytics/devguides/config/admin/v1/rest
 - https://googleapis.dev/nodejs/analytics-admin/latest/index.html

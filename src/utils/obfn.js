@@ -2,6 +2,7 @@ import os from 'os';
 import path from 'path';
 import { writeFile, readFile, appendFile } from 'node:fs/promises';
 import { writeFileSync, readFileSync } from 'node:fs';
+import express from 'express';
 
 const debugInfo = true;
 const debugVobose = true;
@@ -32,10 +33,10 @@ function setPathByOs(filenm = '') {
   }
   return configPath;
 }
-async function saveJSON(fileName, data) {
+async function patchLocalJSON(fileName, data) {
   appendFile(`./data/born/${fileName}.json`, JSON.stringify(data) + ',\n', function (err) {
     if (err) {
-      return console.log('oblog', 'saveJSON.err', err);
+      return console.log('oblog', 'patchLocalJSON.err', err);
     }
   });
 }
@@ -91,4 +92,29 @@ function timeoutPromise() {
     }, 20000);
   });
 }
-export { oblog, oblogVerbose as oblogV, setPathByOs, saveJSON, saveLocalJSON, getLocalJSON, getLocalJSONSync, getCurDateShort, getCurSecond, getFirstHalf };
+function getRouter(routes){
+  const router = express.Router();
+  routes.forEach((route) => {
+    const rtType = route.type || 'get';
+    const rtPath = route.path || '/' + route.name.replace(/_/g, '/');
+    if (rtType === 'use') {
+      router.use(rtPath, route.fn);
+    } else if (rtType === 'index') {
+      router.get('/', (req, res, next) => {
+        res.render('route', { title: route.title, rtBase: route.base, routes: routes });
+      });
+    } else {
+      router[rtType](rtPath, async (req, res, next) => {
+        try {
+          const data = await route.fn(); // 不需要客户端信息
+          res.json({ status: 'ok', result: data });
+          saveLocalJSON(`data/temp/${route.name}_${getCurSecond()}.json`, data);
+        } catch (error) {
+          res.json({ status: 'err', result: error.details });
+        }
+      });
+    }
+  });
+  return router;
+}
+export { oblog, oblogVerbose as oblogV, setPathByOs, patchLocalJSON, saveLocalJSON, getLocalJSON, getLocalJSONSync, getCurDateShort, getCurSecond, getFirstHalf, timeoutPromise, getRouter };

@@ -1,20 +1,23 @@
-import express from 'express';
-const router = express.Router();
+import { getRouter } from '#utils/obfn.js';
 
-router.post('/login', function(req, res, next) {
-  const rb=req.body;
-  if(rb.username=="aten"&&rb.password=="aten#123"){
-      res.json({
-          status: "success",
-          msg: "login success",
-      });
-  }else{
-      res.json({
-          status: "failed",
-          msg: "login failed",
-      });
+const routes = [
+  { name: 'index', type: 'index', path: '/', title: 'Auth', base: '/api/auth' },
+  { name: 'dev', fn: () => 'dev' },
+  { name: 'login', fn: () => 'login' },
+];
+export default getRouter(routes);
+
+async function login() {
+  const rb = req.body;
+  if (rb.username == 'aten' && rb.password == 'aten#123') {
+    return {
+      status: 'success',
+      msg: 'login success',
+    };
+  } else {
+    return {
+      status: 'failed',
+      msg: 'login failed',
+    };
   }
-});
-
-export default router;
-
+}

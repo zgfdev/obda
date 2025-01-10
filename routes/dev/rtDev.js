@@ -1,12 +1,12 @@
-import express from 'express';
 import { getLocalData } from '#utils/obdata.js';
+import { getRouter } from '#utils/obfn.js';
 // import data from '#data/test.json' with { type: 'json' };
 
-const router=express.Router();
-export default router;
-router.get('/', (req,res,next)=>{
-  res.render('index', { title: 'dev' });
-});
+const routes=[
+  { name: 'index', type: 'index', path: '/', title: 'Dev', base: '/api/dev' },
+  { name: 'test', fn: test },
+];
+export default getRouter(routes);
 
 async function test() {
   return (await getLocalData("test"))[0];

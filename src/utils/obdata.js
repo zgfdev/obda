@@ -1,4 +1,4 @@
-import { saveJSON, getLocalJSON } from '#utils/obfn.js';
+import { patchLocalJSON, getLocalJSON } from '#utils/obfn.js';
 
 const data={
   test: {
@@ -7,7 +7,7 @@ const data={
     data: []
   }
 }
-async function getJSON(key){
+async function getTheJSON(key){
   const cdo=data[key];
   cdo.data=(await getLocalJSON(cdo.path))['result'];
   // cdo.status='ok';
@@ -16,7 +16,7 @@ async function getJSON(key){
 
 async function getLocalData(key){
   const cdo=data[key];
-  return cdo.status?data[key].data:await getJSON(key);
+  return cdo.status?data[key].data:await getTheJSON(key);
 }
 
 export { getLocalData }

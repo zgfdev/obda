@@ -1,6 +1,8 @@
 import express from 'express';
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import fs from 'fs';
+import rtGA_dataApi_gd from './rtGD.js';
+import { getRouter } from '#utils/obfn.js';
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 const adc = new BetaAnalyticsDataClient({keyFilename: process.env.credential_gcp_service_account_json}); //GCP服务账号凭据文件
 const propertyId=process.env.ga_property_id; // GA媒体资源ID
@@ -84,28 +86,20 @@ function getData2(){
 }
 // getData2();
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
-const router=express.Router();
-
-const apiInfo = {
-  base: '/gapi/ga/data',
-  list: [
+const routes=[
+  { name: 'index', type: 'index', path: '/', title: 'GA DataAPI', base: '/api/gapi/ga/data' },
+    {
+      name: 'GA dataApi GD', type: 'use', path: '/gd', fn: rtGA_dataApi_gd
+    },
     {
       name: 'getReportResult',
       meth: 'get',
       path: '/report',
       fn: getReportResult
-    }
-  ],
-};
-router.get('/', (req, res, next) => {
-  res.render('apiList', { title: `GA DataAPI`, apiInfo: apiInfo });
-});
-apiInfo.list.forEach((api) => {
-  router[api.meth](api.path, async (req, res, next) => {
-    const result = await api.fn(req);
-    res.json({ result: result });
-  });
-});
+    },
+];
+const router = express.Router();
+export default getRouter(routes);
 
 async function getReportResult(req){
   try {
@@ -118,4 +112,3 @@ async function getReportResult(req){
     return {status:"err"};
   }
 }
-export default router;

@@ -3,9 +3,6 @@ import { GoogleAdsApi } from "google-ads-api";
 import fs from 'fs';
 
 
-
-
-
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 const router=express.Router();
 router.get('/', (req,res,next)=>{

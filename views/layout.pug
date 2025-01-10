@@ -1,3 +1,5 @@
+include mixins.pug
+
 doctype html
 html
   head
@@ -9,18 +11,6 @@ html
     link(rel='stylesheet', href='/css/xyz.css')
     script(src="/js/xyz.js")
   body
-    nav(id="topNav")
-      ul
-        li
-          a(href="/") Home
-        li
-          a(href="/api/dev") Dev
-        li
-          a(href="/api/kit") Kit
-        li
-          a(href="/api/gapi/ga/data") gaDataAPI
-        li
-          a(href="/api/gapi/ga/admin") gaAdminAPI
-        li
-          a(href="/api/gapi/ga/admin/xm") XM
+    +nav()
+
     block content

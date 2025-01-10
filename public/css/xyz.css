@@ -1,3 +1,6 @@
+body{
+  padding-left: 20px;
+}
 a{
   text-decoration: none;
   color: #0969da;
@@ -13,6 +16,9 @@ h1{
   font-size: 24px;
 }
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
+#topNav ul{
+  padding-inline-start: 20px;
+}
 #topNav ul li{
   display: inline-block;
   margin-right: 10px;

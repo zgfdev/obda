@@ -1,11 +1,17 @@
 import express from 'express';
 import { ProjectsClient } from '@google-cloud/resource-manager';
-import { saveJSON, getLocalJSON } from '#utils/obfn.js';
+import { patchLocalJSON, getLocalJSON, getRouter } from '#utils/obfn.js';
 import { cfg_key } from '#conf/obcfg.js';
 
-
+/*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
+const routes = [
+  { name: 'index', type: 'index', path: '/', title: 'gcp resouce manager api', base: '/gapi/gcp/resm' },
+  { name: 'getProjectList', path: '/prj/list', fn: project_getList },
+];
+const router = express.Router();
+export default getRouter(routes);
+/*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 const rmc = new ProjectsClient({ keyFilename: cfg_key });
-
 async function project_getList() {
   const projects = rmc.searchProjectsAsync();
   console.log('prj');
@@ -15,33 +21,4 @@ async function project_getList() {
   return projects;
 }
 
-
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
-const router = express.Router();
-export default router;
-
-const apiInfo = {
-  base: '/gapi/gcp/resm',
-  list: [
-    {
-      name: 'getProjectList',
-      meth: 'get',
-      path: '/prj/list',
-      fn: project_getList
-    }
-  ],
-};
-router.get('/', (req, res, next) => {
-  res.render('apiList', { title: `gcp resouce manager api`, apiInfo: apiInfo });
-});
-apiInfo.list.forEach((api) => {
-  router[api.meth](api.path, async (req, res, next) => {
-    const result = await api.fn();
-    // console.log('oblog', `api.result.${api.name}`, result);
-    res.json({ result: result });
-  });
-});
-
-/*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
-
-

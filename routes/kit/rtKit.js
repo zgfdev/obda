@@ -1,51 +1,36 @@
 import express from 'express';
 import { cfg_aid, cfg_pid } from '#conf/obcfg.js';
-import { saveJSON, getLocalJSON, getFirstHalf } from '#utils/obfn.js';
+import { patchLocalJSON, getLocalJSON, getFirstHalf, getRouter } from '#utils/obfn.js';
 
-
-const router = express.Router();
-export default router;
-
-
-const apiInfo = {
-  base: '/api/kit',
-  list: [
-    {
-      name: 'getData',
-      meth: 'get',
-      path: '/data/get',
-      fn: getPropertyJson
-    },
-    {
-      name: 'diffData',
-      meth: 'get',
-      path: '/data/diff',
-      fn: diffData
-    },
-    {
-      name: 'getStreams',
-      meth: 'get',
-      path: '/data/streams',
-      fn: getStreams
-    },
-    {
-      name: 'getCds',
-      meth: 'get',
-      path: '/data/cds',
-      fn: getCds
-    }
-  ],
-};
-router.get('/', (req, res, next) => {
-  res.render('apiList', { title: `stream`, apiInfo: apiInfo });
-});
-apiInfo.list.forEach((api) => {
-  router[api.meth](api.path, async (req, res, next) => {
-    const result = await api.fn();
-    // console.log('oblog', `api.result.${api.name}`, result);
-    res.json({ result: result });
-  });
-});
+const routes=[
+  { name: 'index', type: 'index', path: '/', title: 'Kit', base: '/api/kit' },
+  {
+    name: 'getData',
+    type: 'get',
+    path: '/data/get',
+    fn: getPropertyJson
+  },
+  {
+    name: 'diffData',
+    type: 'get',
+    path: '/data/diff',
+    fn: diffData
+  },
+  {
+    name: 'getStreams',
+    type: 'get',
+    path: '/data/streams',
+    fn: getStreams
+  },
+  {
+    name: 'getCds',
+    type: 'get',
+    path: '/data/cds',
+    fn: getCds
+  }
+];
+const router=express.Router();
+export default getRouter(routes);
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 async function getPropertyJson(){
   const data=await getLocalJSON('data/cgtn_properties.json');
@@ -91,11 +76,12 @@ async function getStreams(){
 }
 /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
 async function getCds(){
-  const data=await getLocalJSON('data/xm_es_cds.json');
+  const data=await getLocalJSON('data/xm_es_cds_all.json');
   const arr=data.result;
   const cdArr=[];
+  // !["utm_channel","utm_content","utm_term","utm_type","abtest_group","abtest_group1","abtest_group2","sid","perf","perf1","perf2"]
   arr.forEach(e=>{
-    if(!["utm_channel","utm_content","utm_term","utm_type","abtest_group","abtest_group1","abtest_group2","sid","perf","perf1","perf2"].includes(e.parameterName)){
+    if(["utm_channel","utm_content","utm_term","utm_type","abtest_group","abtest_group1","abtest_group2","perf","perf1","perf2"].includes(e.parameterName)){
       cdArr.push({
         displayName: e.displayName,
         description: e.description,

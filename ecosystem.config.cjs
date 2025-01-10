@@ -4,7 +4,7 @@ module.exports = {
     script : "./srv.js",
     watch: true,
     // watch_delay: 1000,
-    ignore_watch : ["node_modules","data/born"],
+    ignore_watch : ["node_modules","data"],
     max_restarts: 5,
     autorestart: false,
     env: {
