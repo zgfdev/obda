@@ -4,7 +4,7 @@ module.exports = {
     script : "./srv.js",
     watch: true,
     // watch_delay: 1000,
-    ignore_watch : ["node_modules","data"],
+    ignore_watch : ["node_modules","data",".git"],
     max_restarts: 5,
     autorestart: false,
     env: {
